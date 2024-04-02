@@ -31,11 +31,12 @@ function customEmailTrigger(e) {
             let due_date = getDueDate(range.getValue());
             let due_date_col = sheet.getRange('G' + row);
 
-            if (due_date != '' &&
-                tasks != '' &&
-                name != '') {
-                due_date_col.setValue(due_date);
-            }
+            // if (due_date != '' &&
+            //     tasks != '') {
+            //     due_date_col.setValue(due_date);
+            // }
+
+            due_date_col.setValue(due_date);
         }
         else if (range.getColumn() == 6) {
 
