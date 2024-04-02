@@ -5,13 +5,9 @@ function createMenuLinks() {
 
     // Add a button to the menu
 
-    if (getTriggerId() != '') {
-        menu.addItem('Create Sent Mail Dropdowns', 'createButtonInCell');
-    }
-    else {
-        menu.addItem('Create Triggers', 'autoCreateTrigger');
-    }
-    
+    menu.addItem('Change the e-mail owner', 'autoCreateTrigger');
+    menu.addItem('Create Sent Mail Dropdowns', 'createButtonInCell');
+
     // menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
 
     menu.addToUi();
