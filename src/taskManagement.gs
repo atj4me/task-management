@@ -23,7 +23,7 @@ function customEmailTrigger(e) {
 
             let priorityName = 'In Progress';
             sheet.getRange(row, 3).setValue(priorityName);
-            sheet.getRange(row, 8).setValue("");
+            // sheet.getRange(row, 8).setValue("");
         }
 
 
@@ -55,7 +55,7 @@ function customEmailTrigger(e) {
             } else if (finishDate.getDate() > due_date.getDate() && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
                 newStatus = "Done but late";
 
-                sheet.getRange(row, 8).setValue("Send Assignment e-mail");
+                sheet.getRange(row, 8).setValue("1. Send Assignment e-mail");
 
                 // Send E-mail when the task is delayed
 
@@ -82,7 +82,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'The email is invalid!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     range.setValue("");
                     return;
                 }
@@ -91,7 +91,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please enter a valid task!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     range.setValue("");
                     return;
                 }
@@ -100,7 +100,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please select a valid Status!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     range.setValue("");
                     return;
                 }
@@ -109,7 +109,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please select a valid Name!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     range.setValue("");
                     return;
                 }
@@ -118,7 +118,7 @@ function customEmailTrigger(e) {
                  * Function to Send Email
                  */
                 sendEmail(recipientEmail, subject, emailBody);
-                sheet.getRange(row, 8).setValue("Mail Sent");
+                sheet.getRange(row, 8).setValue("3. Mail Sent");
             } else {
                 newStatus = "Delayed/Not completed";
             }
@@ -130,7 +130,7 @@ function customEmailTrigger(e) {
         }
         else if (range.getColumn() === 8) {
             // Check if the edited cell is in column H (8)
-            if (value === "Send Assignment e-mail") {
+            if (value === "1. Send Assignment e-mail") {
                 // Perform actions when "Yes" is selected (e.g., reset to "No")
 
 
@@ -156,7 +156,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'The email is invalid!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     return;
                 }
 
@@ -164,7 +164,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please enter a valid task!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     return;
                 }
 
@@ -172,7 +172,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please select a valid Status!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     return;
                 }
 
@@ -180,7 +180,7 @@ function customEmailTrigger(e) {
                     showMessage(columnI,
                         'Please select a valid Name!        ',
                         'error');
-                    sheet.getRange(row, 8).setValue("Failed to Send E-mail");
+                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
                     return;
                 }
 
@@ -197,7 +197,7 @@ function customEmailTrigger(e) {
                     'success');
 
                 sheet.autoResizeColumn(9); // Adjust the column index if needed
-                sheet.getRange(row, 8).setValue("Mail Sent");
+                sheet.getRange(row, 8).setValue("3. Mail Sent");
             }
         }
     }
