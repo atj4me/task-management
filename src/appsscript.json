@@ -9,8 +9,11 @@
       "menuName": "Create Buttons",
       "functionName": "createButtonInCell"
     }, {
-      "menuName": "createMenuLinks",
+      "menuName": "Create Menu",
       "functionName": "createMenuLinks"
+    }, {
+      "menuName": "Delete All Triggers (DO NOT USE)",
+      "functionName": "deleteEmailTriggers"
     }]
   }
 }

@@ -11,7 +11,8 @@ function createMenuLinks() {
     else {
         menu.addItem('Create Triggers', 'autoCreateTrigger');
     }
-    menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
+    
+    // menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
 
     menu.addToUi();
 }
