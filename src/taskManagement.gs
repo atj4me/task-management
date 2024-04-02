@@ -30,7 +30,8 @@ function customEmailTrigger(e) {
             let due_date_col = sheet.getRange('G' + row);
 
             if (due_date != '' && 
-                tasks != '' ) {
+                tasks != '' && 
+                name != '') {
                 due_date_col.setValue(due_date);
             }
         }
@@ -48,6 +49,8 @@ function customEmailTrigger(e) {
                 newStatus = "Done before time";
             } else if (finishDate > dueDate && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
                 newStatus = "Done but late";
+
+                sheet.getRange(row, 8).setValue("Send Assignment e-mail");
 
                 // Send E-mail when the task is delayed
 
@@ -284,7 +287,7 @@ function formatDate(dateString) {
     // Check if the value is actually a date (optional)
     if (dateString instanceof Date) {
         // Use Utilities.formatDate for flexible formatting
-        const formattedDate = Utilities.formatDate(dateString, SpreadsheetApp.getActiveSheet().getLocale(), 'EEEE, MMMM dd yyyy');
+        const formattedDate = Utilities.formatDate(dateString, 'en_US', 'EEEE, MMMM dd yyyy');
         return formattedDate;
     }
 }
