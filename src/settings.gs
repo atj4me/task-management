@@ -4,8 +4,9 @@ function createMenuLinks() {
 
     let title = 'Project Management Settings';
     let scriptUser = getScriptUserEmail();
-    if (scriptUser != null){
-        title = `${title} (Sending as ${scriptUser})`
+
+    if (scriptUser != null && scriptUser != '') {
+        title = `${title} (Sending as ${scriptUser})`;
     }
     const menu = ui.createMenu(title);
 
@@ -17,7 +18,7 @@ function createMenuLinks() {
 
     let currentUser = getCustomUserEmail();
 
-    if(currentUser == null) {
+    if (currentUser == null || currentUser == '') {
         currentUser = 'the current user';
     }
 
@@ -43,7 +44,8 @@ function initiateMenu() {
 
 function onOpen() {
 
-    if (getCustomUserEmail() != null) {
+    let currentUser = getCustomUserEmail();
+    if (currentUser != null && currentUser != '') {
         createMenuLinks();
     }
     else {
