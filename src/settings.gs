@@ -1,7 +1,13 @@
 function createMenuLinks() {
     // Create a custom menu
     const ui = SpreadsheetApp.getUi();
-    const menu = ui.createMenu('Project Management Settings');
+
+    let title = 'Project Management Settings';
+    let scriptUser = getScriptUserEmail();
+    if (scriptUser != null){
+        title = `${title} (Sending as ${scriptUser})`
+    }
+    const menu = ui.createMenu(title);
 
     const userEmail = Session.getActiveUser().getEmail();
 
@@ -9,9 +15,15 @@ function createMenuLinks() {
         saveUserEmail(userEmail);
     }
 
+    let currentUser = getCustomUserEmail();
+
+    if(currentUser == null) {
+        currentUser = 'the current user';
+    }
+
     // Add a button to the menu
 
-    menu.addItem(`Send the e-mail as ${getCustomUserEmail()}`, 'autoCreateTrigger');
+    menu.addItem(`Send the e-mail as ${currentUser}`, 'autoCreateTrigger');
     menu.addItem('Create Sent Mail Dropdowns', 'createButtonInCell');
 
     // menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
@@ -131,9 +143,29 @@ function getCustomUserEmail() {
     }
 }
 
+function saveScriptUserEmail(email) {
+    const scriptProperties = PropertiesService.getScriptProperties();
+    scriptProperties.setProperty('USER_EMAIL', email);
+}
+
+function getScriptUserEmail() {
+    try {
+        // Get the value for the user property 'DISPLAY_UNITS'.
+        const scriptProperties = PropertiesService.getScriptProperties();
+        const trigger = scriptProperties.getProperty('USER_EMAIL');
+        return trigger;
+    } catch (err) {
+        // TODO (developer) - Handle exception
+        console.log('Failed with error %s', err.message);
+    }
+}
+
 function autoCreateTrigger() {
     deleteTriggerbyHandler('customEmailTrigger');
     createSpreadsheetOpenTrigger();
     createMenuLinks();
+
+    const userEmail = Session.getActiveUser().getEmail();
+    saveScriptUserEmail(userEmail);
     showDialog('TriggerInstall', 'Triggers Installed');
 }
