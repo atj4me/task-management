@@ -31,7 +31,7 @@ function initiateMenu() {
 
 function onOpen() {
 
-    if (getCustomUserEmail() != '') {
+    if (getCustomUserEmail() != null) {
         createMenuLinks();
     }
     else {
