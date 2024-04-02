@@ -5,9 +5,13 @@ function createMenuLinks() {
 
     const userEmail = Session.getActiveUser().getEmail();
 
+    if (userEmail != '') {
+        saveUserEmail(userEmail);
+    }
+
     // Add a button to the menu
 
-    menu.addItem(`Send the e-mail as ${userEmail}`, 'autoCreateTrigger');
+    menu.addItem(`Send the e-mail as ${getCustomUserEmail()}`, 'autoCreateTrigger');
     menu.addItem('Create Sent Mail Dropdowns', 'createButtonInCell');
 
     // menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
@@ -15,8 +19,25 @@ function createMenuLinks() {
     menu.addToUi();
 }
 
+function initiateMenu() {
+    // Create a custom menu
+    const ui = SpreadsheetApp.getUi();
+    const menu = ui.createMenu('Project Management Settings');
+
+    // Add a button to the menu
+    menu.addItem(`Initiate Scripts`, 'createMenuLinks');
+    menu.addToUi();
+}
+
 function onOpen() {
-    createMenuLinks();
+
+    if (getCustomUserEmail() != '') {
+        createMenuLinks();
+    }
+    else {
+        initiateMenu();
+    }
+    createButtonInCell();
 }
 
 function showDialog(page, title) {
@@ -86,7 +107,23 @@ function getTriggerId() {
         // Get the value for the user property 'DISPLAY_UNITS'.
         const scriptProperties = PropertiesService.getScriptProperties();
         const trigger = scriptProperties.getProperty('TRIGGER_ID');
-        console.log(trigger);
+        return trigger;
+    } catch (err) {
+        // TODO (developer) - Handle exception
+        console.log('Failed with error %s', err.message);
+    }
+}
+
+function saveUserEmail(email) {
+    const scriptProperties = PropertiesService.getUserProperties();
+    scriptProperties.setProperty('USER_EMAIL', email);
+}
+
+function getCustomUserEmail() {
+    try {
+        // Get the value for the user property 'DISPLAY_UNITS'.
+        const scriptProperties = PropertiesService.getUserProperties();
+        const trigger = scriptProperties.getProperty('USER_EMAIL');
         return trigger;
     } catch (err) {
         // TODO (developer) - Handle exception
