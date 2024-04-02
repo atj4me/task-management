@@ -8,6 +8,9 @@
     "macros": [{
       "menuName": "Create Buttons",
       "functionName": "createButtonInCell"
+    }, {
+      "menuName": "createMenuLinks",
+      "functionName": "createMenuLinks"
     }]
   }
 }
