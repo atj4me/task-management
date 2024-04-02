@@ -4,7 +4,12 @@ function createButtonInCell() {
 
   // Create a data validation rule
   var rule = SpreadsheetApp.newDataValidation()
-    .requireValueInList(["Send Assignment e-mail", "Don't send e-mail", "Mail Sent", "Failed to Send E-mail"])
+    .requireValueInList([
+                        "1. Send Assignment e-mail", 
+                        "2. Don't send e-mail", 
+                        "3. Mail Sent", 
+                        "4. Failed to Send E-mail"
+                      ])
     .setAllowInvalid(false)
     .build();
 
