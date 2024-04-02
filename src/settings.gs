@@ -3,9 +3,11 @@ function createMenuLinks() {
     const ui = SpreadsheetApp.getUi();
     const menu = ui.createMenu('Project Management Settings');
 
+    const userEmail = Session.getActiveUser().getEmail();
+
     // Add a button to the menu
 
-    menu.addItem('Change the e-mail owner', 'autoCreateTrigger');
+    menu.addItem(`Send the e-mail as ${userEmail}`, 'autoCreateTrigger');
     menu.addItem('Create Sent Mail Dropdowns', 'createButtonInCell');
 
     // menu.addItem('Delete All Triggers (DO NOT USE)', 'deleteEmailTriggers');
