@@ -14,6 +14,7 @@ function customEmailTrigger(e) {
         const tasks = sheet.getRange('B' + row).getValue(); // Change to the desired cell address
         const name = sheet.getRange('E' + row).getValue();
         const priority = sheet.getRange('D' + row).getValue(); // Change to the desired cell address
+        const due_date = sheet.getRange('G' + row).getValue(); // Change to the desired cell address
 
         if (finishDate == '' &&
             tasks != '' &&
@@ -22,6 +23,7 @@ function customEmailTrigger(e) {
 
             let priorityName = 'In Progress';
             sheet.getRange(row, 3).setValue(priorityName);
+            sheet.getRange(row, 8).setValue("");
         }
 
 
@@ -29,8 +31,8 @@ function customEmailTrigger(e) {
             let due_date = getDueDate(range.getValue());
             let due_date_col = sheet.getRange('G' + row);
 
-            if (due_date != '' && 
-                tasks != '' && 
+            if (due_date != '' &&
+                tasks != '' &&
                 name != '') {
                 due_date_col.setValue(due_date);
             }
@@ -45,9 +47,11 @@ function customEmailTrigger(e) {
             let newStatus;
             if (finishDate === "") {
                 newStatus = "In Progress"; // No finish date, stays "In progress"
-            } else if (finishDate < dueDate) {
+            } else if (finishDate.getDate() < due_date.getDate()) {
                 newStatus = "Done before time";
-            } else if (finishDate > dueDate && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
+            } else if (finishDate.getDate() == due_date.getDate()) {
+                newStatus = "Done";
+            } else if (finishDate.getDate() > due_date.getDate() && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
                 newStatus = "Done but late";
 
                 sheet.getRange(row, 8).setValue("Send Assignment e-mail");
@@ -56,7 +60,6 @@ function customEmailTrigger(e) {
 
                 // Get data from the sheet
                 const status = sheet.getRange('C' + row).getValue(); // Change to the desired cell address
-                const due_date = sheet.getRange('G' + row).getValue(); // Change to the desired cell address
                 const subject = 'The task has been delayed';
                 let emailBody = 'Hello #Name, \n' +
                     'This is to let you know that the following task has been delayed. \n\n' +
@@ -132,7 +135,6 @@ function customEmailTrigger(e) {
 
                 // Get data from the sheet
                 const status = sheet.getRange('C' + row).getValue(); // Change to the desired cell address
-                const due_date = sheet.getRange('G' + row).getValue(); // Change to the desired cell address
                 const subject = 'A New Task has been assigned to you';
                 let emailBody = 'Hello #Name, \n' +
                     'A new task has been assigned to you. Please find the details below \n\n' +
