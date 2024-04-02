@@ -29,7 +29,7 @@ function customEmailTrigger(e) {
             let due_date = getDueDate(range.getValue());
             let due_date_col = sheet.getRange('G' + row);
 
-            if (due_date == '') {
+            if (due_date != '') {
                 due_date_col.setValue(due_date);
             }
         }
