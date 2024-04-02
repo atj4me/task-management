@@ -30,8 +30,7 @@ function customEmailTrigger(e) {
             let due_date_col = sheet.getRange('G' + row);
 
             if (due_date != '' && 
-                tasks != '' && 
-                name != '') {
+                tasks != '' ) {
                 due_date_col.setValue(due_date);
             }
         }
