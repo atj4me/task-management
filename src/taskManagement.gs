@@ -281,11 +281,11 @@ function getFutureWeekday(offset) {
     return futureDate;
 }
 
-function formatDate(date) {
+function formatDate(dateString) {
     // Check if the value is actually a date (optional)
-    if (date instanceof Date) {
+    if (dateString instanceof Date) {
         // Use Utilities.formatDate for flexible formatting
-        const formattedDate = Utilities.formatDate(dueDateString, Session.getScriptLocale(), 'EEEE, MMMM dd yyyy');
+        const formattedDate = Utilities.formatDate(dateString, Session.getScriptLocale(), 'EEEE, MMMM dd yyyy');
         return formattedDate;
     }
 }
