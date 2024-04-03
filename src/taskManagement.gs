@@ -85,7 +85,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!tasks) {
-                    showMessage(,
+                    showMessage(
                         'Please enter a valid task!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -94,7 +94,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!status) {
-                    showMessage(,
+                    showMessage(
                         'Please select a valid Status!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -103,7 +103,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!name) {
-                    showMessage(,
+                    showMessage(
                         'Please select a valid Name!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -147,7 +147,7 @@ function customEmailTrigger(e) {
 
                 // Validate recipient email (you can add more validation if needed)
                 if (!isValidEmail(recipientEmail)) {
-                    showMessage(,
+                    showMessage(
                         'The email is invalid!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -155,7 +155,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!tasks) {
-                    showMessage(,
+                    showMessage(
                         'Please enter a valid task!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -163,7 +163,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!status) {
-                    showMessage(,
+                    showMessage(
                         'Please select a valid Status!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -171,7 +171,7 @@ function customEmailTrigger(e) {
                 }
 
                 if (!name) {
-                    showMessage(,
+                    showMessage(
                         'Please select a valid Name!        ',
                         'error');
                     sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
@@ -186,7 +186,7 @@ function customEmailTrigger(e) {
                 // Resize the column width to fit content
                 columnI.setWrapStrategy(SpreadsheetApp.WrapStrategy.OVERFLOW);
 
-                showMessage(,
+                showMessage(
                     'Mail has been Sent Successfully to ' + recipientEmail + '!  with the following content \n\r      ' + emailBody,
                     'success');
 

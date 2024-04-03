@@ -1,19 +1,22 @@
 {
   "timeZone": "Asia/Kolkata",
-  "dependencies": {
-  },
+  "dependencies": {},
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "sheets": {
-    "macros": [{
-      "menuName": "Create Buttons",
-      "functionName": "createButtonInCell"
-    }, {
-      "menuName": "Create Menu",
-      "functionName": "createMenuLinks"
-    }, {
-      "menuName": "Delete All Triggers (DO NOT USE)",
-      "functionName": "deleteEmailTriggers"
-    }]
+    "macros": [
+      {
+        "menuName": "Create Buttons",
+        "functionName": "createButtonInCell"
+      },
+      {
+        "menuName": "Create Menu",
+        "functionName": "createMenuLinks"
+      },
+      {
+        "menuName": "Delete All Triggers (DO NOT USE)",
+        "functionName": "deleteEmailTriggers"
+      }
+    ]
   }
 }
