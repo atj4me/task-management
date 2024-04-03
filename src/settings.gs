@@ -57,7 +57,7 @@ function onOpen() {
 function deleteEmailTriggers() {
     deleteTriggerbyHandler('customEmailTrigger');
     createMenuLinks();
-    showDialog('TriggerRemove', 'Triggers Removed');
+    showMessage('Triggers have been removed successfully..!', 'success');
 }
 
 function createSpreadsheetOpenTrigger() {
@@ -94,5 +94,5 @@ function autoCreateTrigger() {
 
     const userEmail = Session.getActiveUser().getEmail();
     saveScriptUserEmail(userEmail);
-    showDialog('TriggerInstall', 'Triggers Installed');
+    showMessage('Triggers have been installed successfully...!', 'success');
 }

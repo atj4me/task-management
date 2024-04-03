@@ -27,18 +27,24 @@ function getEmailByName(name) {
 }
 
 
-function showMessage(Cell, msg, type) {
-    Cell.setValue(msg);
-    // Apply formatting to highlight the cell
-    Cell.setFontWeight('bold'); // Make the text bold
-    Cell.setBackground('#FFFF00'); // Set a yellow background color
+function showMessage(msg, type) {
 
     if (type == 'error') {
-        Cell.setFontColor('red'); // Change font color to red
+        msg = `<p style="color: red; font-weight: bold">${msg}</p>`;
+        title = 'Error!';
     }
     else if (type == 'success') {
-        Cell.setFontColor('green'); // Change font color to red
+        msg = `<p style="color: green;">${msg}</p>`;
+        title = 'Success!';
     }
+    
+    // Display a modal dialog box with custom HtmlService content.
+    var htmlOutput = HtmlService
+    .createHtmlOutput(`<div style="background: #FFFF00">${msg}</div>`)
+    .setWidth(auto)
+    .setHeight(auto);
+    SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+        .showModalDialog(htmlOutput, title);
 }
 
 function sendEmail(to, name, subject, body) {
