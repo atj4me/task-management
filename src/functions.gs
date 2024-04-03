@@ -38,9 +38,12 @@ function showMessage(msg, type) {
         title = 'Success!';
     }
 
+    //Replace next lines with <br>
+    msg.replace(/\n\r|\n|\r/g, "<br>")
+    
     // Display a modal dialog box with custom HtmlService content.
     var htmlOutput = HtmlService
-        .createHtmlOutput(`<div style="background: #FFFF00">${msg}</div>`)
+        .createHtmlOutput(`<body style="background: #FFFF00; padding: 1em 2em;">${msg}</body>`)
         .setWidth(400)
         .setHeight(300);
     SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
