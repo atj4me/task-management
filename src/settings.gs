@@ -54,14 +54,6 @@ function onOpen() {
     createButtonInCell();
 }
 
-function showDialog(page, title) {
-    var html = HtmlService.createHtmlOutputFromFile(page)
-        .setWidth(400)
-        .setHeight(300);
-    SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
-        .showModalDialog(html, title);
-}
-
 function deleteEmailTriggers() {
     deleteTriggerbyHandler('customEmailTrigger');
     createMenuLinks();
@@ -92,73 +84,6 @@ function deleteTrigger(triggerId) {
             ScriptApp.deleteTrigger(allTriggers[index]);
             break;
         }
-    }
-}
-
-
-/**
- * Deleted Trigger by Handler
- */
-function deleteTriggerbyHandler(handler) {
-    // Loop over all triggers.
-    const allTriggers = ScriptApp.getProjectTriggers();
-    for (let index = 0; index < allTriggers.length; index++) {
-        // If the current trigger is the correct one, delete it.
-        if (allTriggers[index].getHandlerFunction() === handler) {
-            ScriptApp.deleteTrigger(allTriggers[index]);
-        }
-    }
-    savetriggerId('');
-}
-
-function savetriggerId(trigger) {
-    const scriptProperties = PropertiesService.getScriptProperties();
-    scriptProperties.setProperty('TRIGGER_ID', trigger);
-}
-
-function getTriggerId() {
-    try {
-        // Get the value for the user property 'DISPLAY_UNITS'.
-        const scriptProperties = PropertiesService.getScriptProperties();
-        const trigger = scriptProperties.getProperty('TRIGGER_ID');
-        return trigger;
-    } catch (err) {
-        // TODO (developer) - Handle exception
-        console.log('Failed with error %s', err.message);
-    }
-}
-
-function saveUserEmail(email) {
-    const scriptProperties = PropertiesService.getUserProperties();
-    scriptProperties.setProperty('USER_EMAIL', email);
-}
-
-function getCustomUserEmail() {
-    try {
-        // Get the value for the user property 'DISPLAY_UNITS'.
-        const scriptProperties = PropertiesService.getUserProperties();
-        const trigger = scriptProperties.getProperty('USER_EMAIL');
-        return trigger;
-    } catch (err) {
-        // TODO (developer) - Handle exception
-        console.log('Failed with error %s', err.message);
-    }
-}
-
-function saveScriptUserEmail(email) {
-    const scriptProperties = PropertiesService.getScriptProperties();
-    scriptProperties.setProperty('USER_EMAIL', email);
-}
-
-function getScriptUserEmail() {
-    try {
-        // Get the value for the user property 'DISPLAY_UNITS'.
-        const scriptProperties = PropertiesService.getScriptProperties();
-        const trigger = scriptProperties.getProperty('USER_EMAIL');
-        return trigger;
-    } catch (err) {
-        // TODO (developer) - Handle exception
-        console.log('Failed with error %s', err.message);
     }
 }
 

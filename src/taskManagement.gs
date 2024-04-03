@@ -72,9 +72,6 @@ function customEmailTrigger(e) {
                     '\n' +
                     'Thank You!';
 
-                // Replace #Name with the actual name from cell B
-                emailBody = emailBody.replace('#Name', name);
-
                 let recipientEmail = getEmailByName(name);
 
                 // Validate recipient email (you can add more validation if needed)
@@ -117,7 +114,7 @@ function customEmailTrigger(e) {
                 /**
                  * Function to Send Email
                  */
-                sendEmail(recipientEmail, subject, emailBody);
+                sendEmail(recipientEmail, name, subject, emailBody);
                 sheet.getRange(row, 8).setValue("3. Mail Sent");
             } else {
                 newStatus = "Delayed/Not completed";
@@ -146,9 +143,6 @@ function customEmailTrigger(e) {
                     '\n' +
                     'Thank You!';
 
-                // Replace #Name with the actual name from cell B
-                emailBody = emailBody.replace('#Name', name);
-
                 let recipientEmail = getEmailByName(name);
 
                 // Validate recipient email (you can add more validation if needed)
@@ -187,7 +181,7 @@ function customEmailTrigger(e) {
                 /**
                  * Function to Send Email
                  */
-                sendEmail(recipientEmail, subject, emailBody);
+                sendEmail(recipientEmail, name, subject, emailBody);
 
                 // Resize the column width to fit content
                 columnI.setWrapStrategy(SpreadsheetApp.WrapStrategy.OVERFLOW);
@@ -203,94 +197,3 @@ function customEmailTrigger(e) {
     }
 }
 
-// Validate email address
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function getEmailByName(name) {
-    // Get the spreadsheet
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("E-mails");
-
-    // Get data range (excluding headers)
-    var dataRange = sheet.getDataRange();
-    var values = dataRange.getValues();
-
-    // Skip the header row
-    var startIndex = 1;
-
-    // Loop through each row (except header)
-    for (var i = startIndex; i < values.length; i++) {
-        if (values[i][0] === name) { // Check if name matches
-            return values[i][1]; // Return email if found
-        }
-    }
-
-    // If not found, return an appropriate message (optional)
-    return false;
-}
-
-
-function showMessage(Cell, msg, type) {
-    Cell.setValue(msg);
-    // Apply formatting to highlight the cell
-    Cell.setFontWeight('bold'); // Make the text bold
-    Cell.setBackground('#FFFF00'); // Set a yellow background color
-
-    if (type == 'error') {
-        Cell.setFontColor('red'); // Change font color to red
-    }
-    else if (type == 'success') {
-        Cell.setFontColor('green'); // Change font color to red
-    }
-}
-
-function sendEmail(to, subject, body) {
-    // Send the email
-    MailApp.sendEmail({
-        to: to,
-        subject: subject,
-        body: body,
-    });
-}
-
-function getDueDate(priority) {
-    // Get the spreadsheet object
-    const sheet = SpreadsheetApp.getActiveSheet();
-    let dueDate = '';
-
-    if (priority === "High") {
-        dueDate = getFutureWeekday(2);
-    } else if (priority === "Medium") {
-        dueDate = getFutureWeekday(3);
-    } else if (priority === "Low") {
-        dueDate = getFutureWeekday(4);
-    } else {
-        // Handle invalid priority (optional: leave blank, set default date, etc.)
-        dueDate = "";
-    }
-    return dueDate;
-}
-
-// Function to get a future weekday (excluding weekends)
-function getFutureWeekday(offset) {
-    const today = new Date();
-    let futureDate = new Date(today.getTime() + (offset * 24 * 60 * 60 * 1000));
-
-    // Adjust for weekends
-    while (futureDate.getDay() === 0 || futureDate.getDay() === 6) {
-        futureDate.setDate(futureDate.getDate() + 1);
-    }
-
-    return futureDate;
-}
-
-function formatDate(dateString) {
-    // Check if the value is actually a date (optional)
-    if (dateString instanceof Date) {
-        // Use Utilities.formatDate for flexible formatting
-        const formattedDate = Utilities.formatDate(dateString, 'en_US', 'EEEE, MMMM dd yyyy');
-        return formattedDate;
-    }
-}
