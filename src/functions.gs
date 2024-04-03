@@ -41,8 +41,8 @@ function showMessage(msg, type) {
     // Display a modal dialog box with custom HtmlService content.
     var htmlOutput = HtmlService
         .createHtmlOutput(`<div style="background: #FFFF00">${msg}</div>`)
-        .setWidth(auto)
-        .setHeight(auto);
+        .setWidth(400)
+        .setHeight(300);
     SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
         .showModalDialog(htmlOutput, title);
 }
