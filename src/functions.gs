@@ -29,6 +29,9 @@ function getEmailByName(name) {
 
 function showMessage(msg, type) {
 
+    //Replace next lines with <br>
+    msg.replace(/\n\r|\n|\r/g, "<br>")
+
     if (type == 'error') {
         msg = `<p style="color: red; font-weight: bold">${msg}</p>`;
         title = 'Error!';
@@ -38,9 +41,6 @@ function showMessage(msg, type) {
         title = 'Success!';
     }
 
-    //Replace next lines with <br>
-    msg.replace(/\n\r|\n|\r/g, "<br>")
-    
     // Display a modal dialog box with custom HtmlService content.
     var htmlOutput = HtmlService
         .createHtmlOutput(`<body style="background: #FFFF00; padding: 1em 2em;">${msg}</body>`)
@@ -77,6 +77,10 @@ function sendEmail(to, name, subject, body) {
         timestamp,
         getScriptUserEmail()
     ]);
+
+    body = body.replace(/\n\r|\n|\r/g, "<br>");
+    showMessage(`Mail has been Sent Successfully to ${name}<${to}>!  with the following content <br><br><pre>${body}</pre>`,
+        'success');
 }
 
 function getDueDate(priority) {

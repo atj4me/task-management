@@ -186,10 +186,6 @@ function customEmailTrigger(e) {
                 // Resize the column width to fit content
                 columnI.setWrapStrategy(SpreadsheetApp.WrapStrategy.OVERFLOW);
 
-                showMessage(
-                    'Mail has been Sent Successfully to ' + recipientEmail + '!  with the following content \n\r      ' + emailBody,
-                    'success');
-
                 sheet.autoResizeColumn(9); // Adjust the column index if needed
                 sheet.getRange(row, 8).setValue("3. Mail Sent");
             }
