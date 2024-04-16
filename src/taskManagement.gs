@@ -41,8 +41,6 @@ function customEmailTrigger(e) {
         }
         else if (range.getColumn() == 6) {
 
-            // Get the values for finish date, due date, and current status
-            const dueDate = sheet.getRange(row, 8).getValue(); // Adjust this number if your due date is in a different column
             const currentStatus = sheet.getRange(row, 3).getValue();
 
             // Update status based on finish date and due date
@@ -51,7 +49,7 @@ function customEmailTrigger(e) {
             const dueDateObj = new Date(due_date);
             dueDateObj.setHours(0, 0, 0, 0);
 
-            const finishDateObj = new Date(due_date);
+            const finishDateObj = new Date(finishDate);
             finishDateObj.setHours(0, 0, 0, 0);
             if (finishDate === "") {
                 newStatus = "In Progress"; // No finish date, stays "In progress"
