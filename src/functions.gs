@@ -79,7 +79,7 @@ function sendEmail(to, name, subject, body) {
     ]);
 
     body = body.replace(/\n\r|\n|\r/g, "<br>");
-    showMessage(`Mail has been Sent Successfully to ${name}<${to}>!  with the following content <br><br><pre>${body}</pre>`,
+    showMessage(`<b>Mail has been Sent Successfully to ${name}<${to}>!</b>  with the following content <br><br><pre>${body}</pre>`,
         'success');
 }
 

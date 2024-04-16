@@ -128,7 +128,7 @@ function customEmailTrigger(e) {
 
                 // Get data from the sheet
                 const status = sheet.getRange('C' + row).getValue(); // Change to the desired cell address
-                const subject = 'A New Task has been assigned to you';
+                const subject = primaryHead + ' task assigned - ' + priority + ' Priority';
                 let emailBody = 'Hello #Name, \n' +
                     'A new task has been assigned to you. Please find the details below \n\n' +
                     'Task Name: ' + tasks + '\n' +
