@@ -70,6 +70,19 @@ function createSpreadsheetOpenTrigger() {
     return trigger;
 }
 
+function createDailyTrigger() {
+    // Get the active spreadsheet (optional, can be replaced with a specific sheet name)
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // Create a daily trigger at 2 AM (time-based)
+    ScriptApp.newTrigger('checkTaskDelayed')
+        .timeBased()
+        .everyDays(1) // Run daily
+        .atHour(2) // At 2 AM
+        .create();
+}
+
+
 /**
  * Deletes a trigger.
  * @param {string} triggerId The Trigger ID.
@@ -89,7 +102,9 @@ function deleteTrigger(triggerId) {
 
 function autoCreateTrigger() {
     deleteTriggerbyHandler('customEmailTrigger');
+    deleteTriggerbyHandler('checkTaskDelayed');
     createSpreadsheetOpenTrigger();
+    createDailyCronTrigger();
     createMenuLinks();
 
     const userEmail = Session.getActiveUser().getEmail();

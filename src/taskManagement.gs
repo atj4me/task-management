@@ -10,6 +10,7 @@ function customEmailTrigger(e) {
         // Update the corresponding cell in Column I
         var columnI = sheet.getRange('I' + row);
 
+        const primaryHead = sheet.getRange(row, 1).getValue(); // Adjust this number if your finish date is in a different column
         const finishDate = sheet.getRange(row, 6).getValue(); // Adjust this number if your finish date is in a different column
         const tasks = sheet.getRange('B' + row).getValue(); // Change to the desired cell address
         const name = sheet.getRange('E' + row).getValue();
@@ -46,13 +47,19 @@ function customEmailTrigger(e) {
 
             // Update status based on finish date and due date
             let newStatus;
+
+            const dueDateObj = new Date(due_date);
+            dueDateObj.setHours(0, 0, 0, 0);
+
+            const finishDateObj = new Date(due_date);
+            finishDateObj.setHours(0, 0, 0, 0);
             if (finishDate === "") {
                 newStatus = "In Progress"; // No finish date, stays "In progress"
-            } else if (finishDate.getDate() < due_date.getDate()) {
+            } else if (finishDateObj.getTime() < dueDateObj.getTime()) {
                 newStatus = "Done before time";
-            } else if (finishDate.getDate() == due_date.getDate()) {
+            } else if (finishDateObj.getTime() == dueDateObj.getTime()) {
                 newStatus = "Done";
-            } else if (finishDate.getDate() > due_date.getDate() && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
+            } else if (finishDateObj.getTime() > dueDateObj.getTime() && currentStatus !== "Done before time") { // Avoid changing from "Done before time"
                 newStatus = "Done but late";
 
                 sheet.getRange(row, 8).setValue("1. Send Assignment e-mail");
@@ -61,7 +68,7 @@ function customEmailTrigger(e) {
 
                 // Get data from the sheet
                 const status = sheet.getRange('C' + row).getValue(); // Change to the desired cell address
-                const subject = 'The task has been delayed';
+                const subject = primaryHead + ' task delayed - ' + priority + ' Priority';
                 let emailBody = 'Hello #Name, \n' +
                     'This is to let you know that the following task has been delayed. \n\n' +
                     'Task Name: ' + tasks + '\n' +

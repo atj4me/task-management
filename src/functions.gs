@@ -196,3 +196,116 @@ function getScriptUserEmail() {
         console.log('Failed with error %s', err.message);
     }
 }
+
+function checkTaskDelayed() {
+    // Triggered when a cell is edited
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Database");
+
+    if (sheet.getName() !== "Database") {
+        return; // Exit if not the desired sheet
+    }
+
+    // Daily check: today's date in YYYY-MM-DD format
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Get all data at once (improves performance)
+    const data = sheet.getDataRange().getValues();
+
+    // Loop through each row of data
+    for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        const primaryHead = row[0];
+        const tasks = row[1];
+        const status = row[2]; // Assuming Column C is at index 2 (0-based indexing)
+        const priority = row[3];
+        const name = row[4];
+        const due_date = row[6]; // Assuming Due Date is at index 7
+
+        // Convert finish date and due date to proper date objects (assuming they are in YYYY-MM-DD format)
+        const dueDateObj = new Date(due_date);
+        dueDateObj.setHours(0, 0, 0, 0);
+
+
+        if (status === "In Progress" || status == null) {
+            // Perform check and update logic based on today and due date
+            let newStatus = status;
+            console.log(today);
+            console.log(dueDateObj);
+
+            if (today.getTime() > dueDateObj.getTime()) {
+                newStatus = "Delayed/Not completed";
+
+                row[7] = ("1. Send Assignment e-mail");
+
+                // Send E-mail when the task is delayed
+
+                // Get data from the sheet
+                const subject = primaryHead + ' task delayed - ' + priority + ' Priority';
+                let emailBody = 'Hello #Name, \n' +
+                    'This is to let you know that the following task has been delayed. \n\n' +
+                    'Task Name: ' + tasks + '\n' +
+                    'Status: ' + newStatus + '\n' +
+                    'Priority: ' + priority + '\n' +
+                    'Due Date: ' + formatDate(due_date) + '\n' +
+                    '\n' +
+                    'Thank You!';
+
+                console.log(emailBody);
+
+                let recipientEmail = getEmailByName(name);
+
+                // Validate recipient email (you can add more validation if needed)
+                if (!isValidEmail(recipientEmail)) {
+                    showMessage(
+                        'The email is invalid!        ',
+                        'error');
+                    row[7] = ("4. Failed to Send E-mail");
+
+                    return;
+                }
+
+                if (!tasks) {
+                    showMessage(
+                        'Please enter a valid task!        ',
+                        'error');
+                    row[7] = ("4. Failed to Send E-mail");
+
+                    return;
+                }
+
+                if (!status) {
+                    showMessage(
+                        'Please select a valid Status!        ',
+                        'error');
+                    row[7] = ("4. Failed to Send E-mail");
+
+                    return;
+                }
+
+                if (!name) {
+                    showMessage(
+                        'Please select a valid Name!        ',
+                        'error');
+                    row[7] = ("4. Failed to Send E-mail");
+
+                    return;
+                }
+
+                /**
+                 * Function to Send Email
+                 */
+                sendEmail(recipientEmail, name, subject, emailBody);
+                row[7] = ("3. Mail Sent");
+            }
+
+            // Update status only if changed
+            if (newStatus !== status) {
+                row[2] = newStatus; // Update status in the data array
+            }
+        }
+    }
+
+    // Update the sheet data in one go (improves performance)
+    sheet.getDataRange().setValues(data);
+}
