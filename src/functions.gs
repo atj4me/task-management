@@ -55,11 +55,16 @@ function sendEmail(to, name, subject, body) {
     // Replace #Name with the actual name from cell B
     body = body.replace('#Name', name);
 
-    // Send the email
+    var advancedArgs = {
+      subject: "<b>" + subject + "</b>" // Wrap subject in <b> tags
+    };
+
+    // Send the email with advanced arguments
     MailApp.sendEmail({
-        to: to,
-        subject: subject,
-        body: body,
+      to: to,
+      subject: subject, // Keep original subject for compatibility
+      body: body,
+      advancedArgs: advancedArgs
     });
 
     // Get the current timestamp
