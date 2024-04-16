@@ -46,7 +46,7 @@ function customEmailTrigger(e) {
             const currentStatus = sheet.getRange(row, 3).getValue();
 
             // Update status based on finish date and due date
-            let newStatus;
+            let newStatus = currentStatus;
 
             const dueDateObj = new Date(due_date);
             dueDateObj.setHours(0, 0, 0, 0);
@@ -67,12 +67,11 @@ function customEmailTrigger(e) {
                 // Send E-mail when the task is delayed
 
                 // Get data from the sheet
-                const status = sheet.getRange('C' + row).getValue(); // Change to the desired cell address
                 const subject = primaryHead + ' task delayed - ' + priority + ' Priority';
                 let emailBody = 'Hello #Name, \n' +
                     'This is to let you know that the following task has been delayed. \n\n' +
                     'Task Name: ' + tasks + '\n' +
-                    'Status: ' + status + '\n' +
+                    'Status: ' + newStatus + '\n' +
                     'Priority: ' + priority + '\n' +
                     'Due Date: ' + formatDate(due_date) + '\n' +
                     'Finished Date: ' + formatDate(finishDate) + '\n' +
