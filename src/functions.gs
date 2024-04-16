@@ -226,12 +226,9 @@ function checkTaskDelayed() {
         const dueDateObj = new Date(due_date);
         dueDateObj.setHours(0, 0, 0, 0);
 
-
         if (status === "In Progress" || status == null) {
             // Perform check and update logic based on today and due date
             let newStatus = status;
-            console.log(today);
-            console.log(dueDateObj);
 
             if (today.getTime() > dueDateObj.getTime()) {
                 newStatus = "Delayed/Not completed";
@@ -251,8 +248,6 @@ function checkTaskDelayed() {
                     '\n' +
                     'Thank You!';
 
-                console.log(emailBody);
-
                 let recipientEmail = getEmailByName(name);
 
                 // Validate recipient email (you can add more validation if needed)
@@ -268,15 +263,6 @@ function checkTaskDelayed() {
                 if (!tasks) {
                     showMessage(
                         'Please enter a valid task!        ',
-                        'error');
-                    row[7] = ("4. Failed to Send E-mail");
-
-                    return;
-                }
-
-                if (!status) {
-                    showMessage(
-                        'Please select a valid Status!        ',
                         'error');
                     row[7] = ("4. Failed to Send E-mail");
 
