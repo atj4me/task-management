@@ -56,13 +56,15 @@ function sendEmail(to, name, subject, body) {
     body = body.replace('#Name', name);
 
     var advancedArgs = {
-      subject: "<b>" + subject + "</b>" // Wrap subject in <b> tags
+      subject: "<b>" + subject + "</b>", // Wrap the subject in <b> tags
+      contentType: "text/html",  // Set content type to HTML
+      htmlBody: body
     };
 
     // Send the email with advanced arguments
     MailApp.sendEmail({
       to: to,
-      subject: subject, // Keep original subject for compatibility
+      subject: '[IMPORTANT] ' + subject, // Keep original subject for compatibility
       body: body,
       advancedArgs: advancedArgs
     });
