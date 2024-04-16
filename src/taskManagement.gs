@@ -97,15 +97,6 @@ function customEmailTrigger(e) {
                     return;
                 }
 
-                if (!status) {
-                    showMessage(
-                        'Please select a valid Status!        ',
-                        'error');
-                    sheet.getRange(row, 8).setValue("4. Failed to Send E-mail");
-                    range.setValue("");
-                    return;
-                }
-
                 if (!name) {
                     showMessage(
                         'Please select a valid Name!        ',
